@@ -1,9 +1,9 @@
 import sys
 import random
 
-ROCK = "Rock"
-PAPER = "Paper"
-SCISSORS = "Scissors"
+ROCK = "ROCK"
+PAPER = "PAPER"
+SCISSORS = "SCISSORS"
 
 allgameN = 9
 rps_list = [ROCK, PAPER, SCISSORS]
@@ -27,26 +27,32 @@ def main():
 			maxwhat = rps_dict.get(member)
 			if maxwhat == max_rpsN:
 				maxwhats.append(member)
-		print(maxwhats)
 
 		print("")
-		print("+--------------------------------+")
-		print("| SCISSORS |   ROCK   |  PAPER   |")
+		print("+==========+==========+==========+")
+		print("| SCISSORS |   ROCK   |   PAPER  |")
 		print("+----------+----------+----------+")
-		print("|   %2.1f%%  |  %2.1f%%   |  %2.1f%%   | : 등장 확률" % (SCISSORSprob, ROCKprob, PAPERprob))
+		print("|    %d회   |    %d회   |    %d회   | : 남은 횟수" % (rps_dict.get(SCISSORS), rps_dict.get(ROCK), rps_dict.get(PAPER)))
 		print("+----------+----------+----------+")
+		print("| %6.1f%%  | %6.1f%%  | %6.1f%%  | : 등장 확률" % (SCISSORSprob, ROCKprob, PAPERprob))
+		print("+==========+==========+==========+")
 		print("|   ROCK   |  PAPER   | SCISSORS | : 이기는 선택지")
 		print("+----------+----------+----------+")
-
 		print("")
-		
-		if (len(maxwhats) == 3):
-			print("최선의 선택지: ")
-		elif (len(maxwhats) == 2):
 
-			print("pass")
+		if (len(maxwhats) == 3):
+			print("최선의 선택지: Random")
+		elif (len(maxwhats) == 2):
+			if (whowin(maxwhats[0]) == maxwhats[1]):
+				print("최선의 선택지: " + maxwhats[1])
+			elif (whowin(maxwhats[1] == maxwhats[0])):
+				print("최선의 선택지: " + maxwhats[0])
 		elif (len(maxwhats) == 1):
-			print("pass")
+			print("최선의 선택지: " + whowin(maxwhats[0]))
+		else:
+			pass
+		
+		print("")
 
 		while(True):
 			print("# 내가 낸 선택지 입력:")
