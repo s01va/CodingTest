@@ -45,6 +45,7 @@ def main():
 
 		if (len(maxwhats) == 3):
 			print("  최선의 선택지: Random")
+			bestchoice = random.choice([ROCK, PAPER, SCISSORS])
 		elif (len(maxwhats) == 2):
 			if (whowin(maxwhats[0]) == maxwhats[1]):
 				bestchoice = maxwhats[1]
