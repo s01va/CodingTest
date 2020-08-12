@@ -9,10 +9,24 @@ allgameN = 9
 rps_list = [ROCK, PAPER, SCISSORS]
 rps_remain_num = {ROCK:3, PAPER:3, SCISSORS:3}
 rps_prob = {ROCK:0, PAPER:0, SCISSORS:0}
+rps_random = []
 
 def main():
+	print("입력모드: 1 / 게임모드: 2")
+	while(True):
+		input_mode = input("  > ")
+		if (input_mode == "1"):
+			break
+		elif (input_mode == "2"):
+			for i in range(0, 3):
+				rps_random.append(ROCK)
+				rps_random.append(PAPER)
+				rps_random.append(SCISSORS)
+			break
+		else:
+			print("Please input again")
+
 	for gameN in range(0, allgameN):
-		
 		restgameN = allgameN - gameN
 
 		ROCKprob = (rps_remain_num.get(ROCK) / restgameN) * 100
@@ -29,7 +43,7 @@ def main():
 			if maxwhat == max_rpsN:
 				maxwhats.append(member)
 
-		print("")
+		print("\n")
 		print("+==========+==========+==========+")
 		print("| SCISSORS |   ROCK   |   PAPER  |")
 		print("+----------+----------+----------+")
@@ -49,7 +63,7 @@ def main():
 		elif (len(maxwhats) == 2):
 			if (whowin(maxwhats[0]) == maxwhats[1]):
 				bestchoice = maxwhats[1]
-			elif (whowin(maxwhats[1] == maxwhats[0])):
+			elif (whowin(maxwhats[1]) == maxwhats[0]):
 				bestchoice = maxwhats[0]
 		elif (len(maxwhats) == 1):
 			bestchoice = whowin(maxwhats[0])
@@ -67,7 +81,7 @@ def main():
 		while(True):
 			print("# 내가 낸 선택지 입력:")
 			print("ROCK: 1  PAPER: 2  SCISSORS: 3")
-			input_rps = input("> ")
+			input_rps = input("  > ")
 			if (input_rps == str(1)):
 				
 				break
@@ -80,23 +94,28 @@ def main():
 			else:
 				print("Please input again")
 
-		while(True):
-			print("# 실제 나온 선택지 입력:")
-			print("ROCK: 1  PAPER: 2  SCISSORS: 3")
-			input_rps = input("> ")
-			if (input_rps == str(1)):
-				rps_remain_num[ROCK] = rps_remain_num[ROCK] - 1
-				break
-			elif (input_rps == str(2)):
-				rps_remain_num[PAPER] = rps_remain_num[PAPER] - 1
-				break
-			elif (input_rps == str(3)):
-				rps_remain_num[SCISSORS] = rps_remain_num[SCISSORS] - 1
-				break
-			else:
-				print("Please input again")
+		if input_mode == "1":
+			while(True):
+				print("# 실제 나온 선택지 입력:")
+				print("ROCK: 1  PAPER: 2  SCISSORS: 3")
+				input_rps = input("  > ")
+				if (input_rps == str(1)):
+					rps_remain_num[ROCK] = rps_remain_num[ROCK] - 1
+					break
+				elif (input_rps == str(2)):
+					rps_remain_num[PAPER] = rps_remain_num[PAPER] - 1
+					break
+				elif (input_rps == str(3)):
+					rps_remain_num[SCISSORS] = rps_remain_num[SCISSORS] - 1
+					break
+				else:
+					print("Please input again")
 
-
+		if input_mode == "2":
+			random_result = random.choice(rps_random)
+			rps_random.remove(random_result)
+			rps_remain_num[random_result] = rps_remain_num[random_result] - 1
+			print("# 프로그램의 선택: " + random_result)
 
 def whowin(rps):
 	if rps == ROCK:
