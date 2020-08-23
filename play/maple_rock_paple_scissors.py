@@ -10,6 +10,7 @@ rps_list = [ROCK, PAPER, SCISSORS]
 rps_remain_num = {ROCK:3, PAPER:3, SCISSORS:3}
 rps_prob = {ROCK:0, PAPER:0, SCISSORS:0}
 rps_random = []
+rps_record = {"win":0, "draw":0, "lose":0}
 
 def main():
 	print("입력모드: 1 / 게임모드: 2")
@@ -81,15 +82,15 @@ def main():
 		while(True):
 			print("# 내가 낸 선택지 입력:")
 			print("ROCK: 1  PAPER: 2  SCISSORS: 3")
-			input_rps = input("  > ")
-			if (input_rps == str(1)):
-				
+			input_rps_choice= input("  > ")
+			if (input_rps_choice == str(1)):
+				input_rps = ROCK
 				break
-			elif (input_rps == str(2)):
-				
+			elif (input_rps_choice == str(2)):
+				input_rps = PAPER
 				break
-			elif (input_rps == str(3)):
-				
+			elif (input_rps_choice == str(3)):
+				input_rps = SCISSORS
 				break
 			else:
 				print("Please input again")
@@ -98,24 +99,37 @@ def main():
 			while(True):
 				print("# 실제 나온 선택지 입력:")
 				print("ROCK: 1  PAPER: 2  SCISSORS: 3")
-				input_rps = input("  > ")
-				if (input_rps == str(1)):
-					rps_remain_num[ROCK] = rps_remain_num[ROCK] - 1
+				compare_rps = input("  > ")
+				if (compare_rps == str(1)):
+					rps_remain_num[ROCK] -= 1
 					break
-				elif (input_rps == str(2)):
-					rps_remain_num[PAPER] = rps_remain_num[PAPER] - 1
+				elif (compare_rps == str(2)):
+					rps_remain_num[PAPER] -= 1
 					break
-				elif (input_rps == str(3)):
-					rps_remain_num[SCISSORS] = rps_remain_num[SCISSORS] - 1
+				elif (compare_rps == str(3)):
+					rps_remain_num[SCISSORS] -= 1
 					break
 				else:
 					print("Please input again")
 
 		if input_mode == "2":
-			random_result = random.choice(rps_random)
-			rps_random.remove(random_result)
-			rps_remain_num[random_result] = rps_remain_num[random_result] - 1
-			print("# 프로그램의 선택: " + random_result)
+			compare_rps = random.choice(rps_random)
+			rps_random.remove(compare_rps)
+			rps_remain_num[compare_rps] = rps_remain_num[compare_rps] - 1
+			print("# 프로그램의 선택: " + compare_rps)
+
+		######### 전적 구현
+		if (input_rps == whowin(compare_rps)):
+			rps_record["win"] += 1
+		elif (input_rps == wholose(compare_rps)):
+			rps_record["lose"] += 1
+		else:
+			rps_record["draw"] += 1
+
+		print("현재 전적: " + str(rps_record["win"]) + "승 " + str(rps_record["lose"]) + "패 " + str(rps_record["draw"]) + "무")
+
+	print("\n이번 판 전적: " + str(rps_record["win"]) + "승 " + str(rps_record["lose"]) + "패 " + str(rps_record["draw"]) + "무")
+	
 
 def whowin(rps):
 	if rps == ROCK:
