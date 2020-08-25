@@ -12,6 +12,7 @@ rps_prob = {ROCK:0, PAPER:0, SCISSORS:0}
 rps_random = []
 
 def main():
+	f_record = open("RecordData.dat", 'b+')
 	print("입력모드: 1 / 게임모드: 2")
 	while(True):
 		input_mode = input("  > ")
